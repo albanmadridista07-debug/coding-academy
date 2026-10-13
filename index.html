@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coding Academy</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0b1120;color:#f1f5f9}
+header{padding:24px 15px;text-align:center;background:#172554}
+header h1{color:#38bdf8;margin:0 0 8px}
+main{max-width:750px;margin:auto;padding:15px}
+.card{background:#172033;padding:17px;border-radius:14px;margin-bottom:16px}
+h2{font-size:21px}
+p{line-height:1.6}
+button{background:#0284c7;color:white;border:0;border-radius:9px;padding:12px 14px;margin:4px 2px;font-size:14px;cursor:pointer}
+button:active{transform:scale(.97)}
+button:disabled{cursor:default}
+.nav{display:flex;flex-wrap:wrap;gap:5px}
+.nav button{flex:1;min-width:65px}
+.page{display:none}
+.page.active{display:block}
+.lesson{display:none}
+.lesson.active{display:block}
+pre{white-space:pre-wrap;background:#020617;color:#86efac;padding:13px;border-radius:8px;overflow:auto}
+textarea{width:100%;min-height:180px;background:#020617;color:#86efac;padding:13px;border:1px solid #334155;border-radius:9px;font-family:monospace;font-size:14px}
+iframe{width:100%;height:230px;background:white;border:0;border-radius:9px}
+progress{width:100%;height:18px}
+.answer{display:block;width:100%;text-align:left;margin:8px 0;background:#263449}
+.answer.correct{background:#15803d}
+.answer.wrong{background:#b91c1c}
+.small{color:#94a3b8;font-size:13px}
+.primary{background:#16a34a}
+#feedback{font-weight:bold}
+</style>
+</head>
+<body>
+
+<header>
+<h1>🚀 Coding Academy</h1>
+<p>Belajar Coding dari Nol!</p>
+</header>
+
+<main>
+<div class="card">
+<div class="nav">
+<button onclick="openPage('home')">🏠 Beranda</button>
+<button onclick="openPage('materi')">📚 Materi</button>
+<button onclick="openPage('editor')">💻 Editor</button>
+<button onclick="openPage('kuis')">📝 Kuis</button>
+</div>
+</div>
+
+<!-- BERANDA -->
+<section id="home" class="page active">
+<div class="card">
+<h2>Halo, Calon Programmer! 👋</h2>
+<p>Selamat datang di Coding Academy. Belajar HTML, CSS, dan JavaScript langsung dari HP kamu.</p>
+<button onclick="openPage('materi')">Mulai Belajar ➜</button>
+<button onclick="openPage('editor')">Coba Coding ➜</button>
+</div>
+
+<div class="card">
+<h2>📈 Progres Belajar</h2>
+<progress id="progress" value="0" max="3"></progress>
+<p id="progressText">0 dari 3 materi selesai</p>
+</div>
+
+<div class="card">
+<h2>🎯 Tantangan Kamu</h2>
+<p>Selesaikan materi, buat website pertamamu, lalu raih skor tinggi di kuis 20 soal.</p>
+<button onclick="openPage('kuis')">Mulai Kuis 20 Soal</button>
+</div>
+</section>
+
+<!-- MATERI -->
+<section id="materi" class="page">
+<div class="card">
+<h2>📚 Materi Coding</h2>
+<p>Pilih materi yang ingin kamu pelajari.</p>
+<div class="nav">
+<button onclick="showLesson(0)">HTML</button>
+<button onclick="showLesson(1)">CSS</button>
+<button onclick="showLesson(2)">JavaScript</button>
+</div>
+
+<div id="lesson0" class="lesson active">
+<h3>1. Belajar HTML</h3>
+<p>HTML adalah bahasa markup untuk membuat struktur website.</p>
+<pre>&lt;h1&gt;Halo Dunia!&lt;/h1&gt;
+&lt;p&gt;Aku sedang belajar coding.&lt;/p&gt;
+&lt;button&gt;Klik Aku&lt;/button&gt;</pre>
+<p><b>Penjelasan:</b></p>
+<ul>
+<li><code>&lt;h1&gt;</code> membuat judul.</li>
+<li><code>&lt;p&gt;</code> membuat paragraf.</li>
+<li><code>&lt;button&gt;</code> membuat tombol.</li>
+</ul>
+<button class="primary" onclick="completeLesson(0)">Tandai Selesai ✓</button>
+</div>
+
+<div id="lesson1" class="lesson">
+<h3>2. Belajar CSS</h3>
+<p>CSS digunakan untuk mengatur warna, ukuran, dan tata letak website.</p>
+<pre>h1 {
+  color: blue;
+  text-align: center;
+}</pre>
+<p><code>color</code> mengubah warna teks. <code>text-align</code> mengatur posisi teks.</p>
+<button class="primary" onclick="completeLesson(1)">Tandai Selesai ✓</button>
+</div>
+
+<div id="lesson2" class="lesson">
+<h3>3. Belajar JavaScript</h3>
+<p>JavaScript membuat website bisa merespons tindakan pengguna.</p>
+<pre>function sapa() {
+  alert("Halo, coder!");
+}</pre>
+<p>Fungsi <code>alert()</code> menampilkan pesan popup.</p>
+<button class="primary" onclick="completeLesson(2)">Tandai Selesai ✓</button>
+</div>
+<p id="lessonFeedback"></p>
+</div>
+</section>
+
+<!-- EDITOR -->
+<section id="editor" class="page">
+<div class="card">
+<h2>💻 Editor HTML</h2>
+<p>Tulis atau ubah kode, lalu tekan Jalankan untuk melihat hasilnya.</p>
+<textarea id="code" spellcheck="false"><!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #e0f2fe;
+  padding: 20px;
+}
+h1 { color: #0284c7; }
+button {
+  background: #0284c7;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
+<h1>Halo Dunia!</h1>
+<p>Ini website pertamaku.</p>
+<button onclick="alert('Keren!')">Klik Aku</button>
+</body>
+</html></textarea>
+<button class="primary" onclick="runCode()">▶ Jalankan Kode</button>
+<button onclick="resetCode()">Reset Kode</button>
+<h3>Hasil Website:</h3>
+<iframe id="preview" title="Pratinjau website" sandbox="allow-scripts"></iframe>
+<p class="small">Kode dijalankan di pratinjau terpisah.</p>
+</div>
+</section>
+
+<!-- KUIS -->
+<section id="kuis" class="page">
+<div class="card">
+<h2>📝 Kuis Coding Pemula</h2>
+<p>Jawab 20 soal berikut. Setiap jawaban benar bernilai 5 poin.</p>
+<progress id="quizProgress" value="0" max="20"></progress>
+<p id="questionNumber">Soal 1 dari 20</p>
+<h3 id="question"></h3>
+<div id="answers"></div>
+<p id="feedback" aria-live="polite"></p>
+<p>Skor: <b id="score">0</b>/100</p>
+<button id="nextBtn" onclick="nextQuestion()">Soal Berikutnya ➜</button>
+<div id="finalResult"></div>
+</div>
+</section>
+
+</main>
+
+<script>
+const completed = new Set();
+
+function openPage(id){
+  document.querySelectorAll('.page').forEach(page=>{
+    page.classList.remove('active');
+  });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function showLesson(n){
+  document.querySelectorAll('.lesson').forEach(el=>{
+    el.classList.remove('active');
+  });
+  document.getElementById('lesson'+n).classList.add('active');
+}
+
+function completeLesson(n){
+  completed.add(n);
+  document.getElementById('progress').value=completed.size;
+  document.getElementById('progressText').textContent=
+    completed.size+' dari 3 materi selesai';
+  document.getElementById('lessonFeedback').textContent=
+    'Materi berhasil ditandai selesai! 🎉';
+}
+
+function runCode(){
+  document.getElementById('preview').srcdoc=
+    document.getElementById('code').value;
+}
+
+const starterCode=`<!DOCTYPE html>
+<html>
+<head>
+<style>
+body { font-family: Arial; text-align: center; }
+h1 { color: #0284c7; }
+</style>
+</head>
+<body>
+<h1>Halo Dunia!</h1>
+<p>Aku sedang belajar coding.</p>
+<button onclick="alert('Berhasil!')">Klik Aku</button>
+</body>
+</html>`;
+
+function resetCode(){
+  document.getElementById('code').value=starterCode;
+  runCode();
+}
+
+const questions=[
+{q:"Apa kepanjangan HTML?",a:["HyperText Markup Language","HighText Machine Language","HyperTool Multi Language"],c:0},
+{q:"Apa fungsi HTML?",a:["Membuat struktur website","Mengedit video","Menghapus virus"],c:0},
+{q:"Tag untuk judul terbesar adalah?",a:["<p>","<h1>","<img>"],c:1},
+{q:"Tag untuk membuat paragraf adalah?",a:["<p>","<br>","<title>"],c:0},
+{q:"Tag untuk membuat tautan adalah?",a:["<linkto>","<a>","<url>"],c:1},
+{q:"Tag untuk menampilkan gambar adalah?",a:["<picturetext>","<img>","<imagefile>"],c:1},
+{q:"Apa fungsi CSS?",a:["Mengatur tampilan website","Membuat database","Mempercepat Wi-Fi"],c:0},
+{q:"Properti CSS untuk warna teks adalah?",a:["background","font-size","color"],c:2},
+{q:"Properti CSS untuk warna latar belakang adalah?",a:["background-color","text-style","font-color"],c:0},
+{q:"Bagaimana memilih elemen dengan ID di CSS?",a:[".nama","#nama","@nama"],c:1},
+{q:"Apa fungsi JavaScript?",a:["Membuat website interaktif","Mengganti layar HP","Membuat kabel"],c:0},
+{q:"Perintah untuk menampilkan popup adalah?",a:["print()","alert()","popuptext()"],c:1},
+{q:"Manakah contoh deklarasi variabel JavaScript yang benar?",a:["let nama = 'Budi';","variable nama;","text nama;"],c:0},
+{q:"Operator untuk penjumlahan adalah?",a:["-","+","/"],c:1},
+{q:"Berapakah hasil 5 + 3?",a:["7","8","9"],c:1},
+{q:"Fungsi dalam JavaScript berguna untuk apa?",a:["Mengelompokkan kode yang bisa dipanggil","Menghapus browser","Mengubah HP menjadi komputer"],c:0},
+{q:"Perintah untuk menampilkan teks di console adalah?",a:["console.log()","screen.text()","show.console()"],c:0},
+{q:"Simbol komentar satu baris JavaScript adalah?",a:["##","//","**"],c:1},
+{q:"Apa ekstensi file HTML?",a:[".mp3",".html",".jpg"],c:1},
+{q:"Aplikasi yang bisa digunakan untuk menulis kode di Android adalah?",a:["Acode","Kalkulator","Galeri"],c:0}
+];
+
+let current=0;
+let score=0;
+let answered=false;
+let finishedQuiz=false;
+
+function showQuestion(){
+  answered=false;
+  finishedQuiz=false;
+  const item=questions[current];
+  document.getElementById('questionNumber').textContent=
+    'Soal '+(current+1)+' dari '+questions.length;
+  document.getElementById('quizProgress').value=current;
+  document.getElementById('question').textContent=item.q;
+  document.getElementById('feedback').textContent='';
+  document.getElementById('finalResult').innerHTML='';
+  const box=document.getElementById('answers');
+  box.innerHTML='';
+
+  item.a.forEach((answer,i)=>{
+    const button=document.createElement('button');
+    button.className='answer';
+    button.textContent=String.fromCharCode(65+i)+'. '+answer;
+    button.onclick=()=>checkAnswer(i);
+    box.appendChild(button);
+  });
+
+  document.getElementById('nextBtn').textContent=
+    current===questions.length-1?'Lihat Hasil 🏆':'Soal Berikutnya ➜';
+  document.getElementById('nextBtn').style.display='inline-block';
+}
+
+function checkAnswer(choice){
+  if(answered || finishedQuiz)return;
+  answered=true;
+  const item=questions[current];
+  const buttons=document.querySelectorAll('.answer');
+
+  buttons.forEach((button,i)=>{
+    button.disabled=true;
+    if(i===item.c)button.classList.add('correct');
+    else if(i===choice)button.classList.add('wrong');
+  });
+
+  if(choice===item.c){
+    score+=5;
+    document.getElementById('feedback').textContent='Benar! 🎉 +5 poin';
+  }else{
+    document.getElementById('feedback').textContent=
+      'Belum tepat. Jawaban benar: '+item.a[item.c];
+  }
+  document.getElementById('score').textContent=score;
+  document.getElementById('quizProgress').value=current+1;
+}
+
+function nextQuestion(){
+  if(finishedQuiz){
+    restartQuiz();
+    return;
+  }
+  if(!answered){
+    document.getElementById('feedback').textContent=
+      'Pilih salah satu jawaban terlebih dahulu!';
+    return;
+  }
+  if(current<questions.length-1){
+    current++;
+    showQuestion();
+  }else{
+    showResult();
+  }
+}
+
+function showResult(){
+  finishedQuiz=true;
+  document.getElementById('questionNumber').textContent='Kuis selesai!';
+  document.getElementById('question').textContent='🏆 Hasil Akhir';
+  document.getElementById('answers').innerHTML=
+    '<h2>'+score+' / 100</h2>';
+  let message=score>=80?'Hebat! Kamu menguasai dasar coding! 🚀':
+    score>=60?'Bagus! Terus berlatih! 💪':
+    'Jangan menyerah. Pelajari materi dan coba lagi! 📚';
+  document.getElementById('feedback').textContent=message;
+  document.getElementById('finalResult').innerHTML=
+    '<p>Jawaban benar: '+(score/5)+' dari 20 soal.</p>';
+  document.getElementById('quizProgress').value=20;
+  document.getElementById('nextBtn').textContent='🔄 Ulangi Kuis';
+}
+
+function restartQuiz(){
+  current=0;
+  score=0;
+  answered=false;
+  finishedQuiz=false;
+  document.getElementById('score').textContent='0';
+  showQuestion();
+}
+
+runCode();
+showQuestion();
+</script>
+</body>
+</html>
